@@ -26,8 +26,8 @@ import com.netflix.appinfo.AmazonInfo;
 public class CloudConfiguration {
     
     private final Logger log = LoggerFactory.getLogger(CloudConfiguration.class);
-    private static final String AWS_API_VERSION = "v2";
-    private static final String AWS_METADATA_URL = "http://169.254.172.2/" + AWS_API_VERSION + "/metadata";
+    private static final String AWS_API_VERSION = "latest";
+    private static final String AWS_METADATA_URL = "http://169.254.169.254/" + AWS_API_VERSION + "/meta-data/";
     // Used as string.contains to search correct container
     // Make sure that your Docker container in AWS Task definition has this as part of its name
     private static final String DOCKER_CONTAINER_NAME = "studentservice";
@@ -94,6 +94,7 @@ public class CloudConfiguration {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
+              log.info("ECS DATA:"+response);  
             }
         } finally {
             con.disconnect();
